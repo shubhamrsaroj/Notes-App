@@ -57,6 +57,7 @@ textarea:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  white-space: pre-wrap;
 }
 
 .save{
@@ -69,5 +70,24 @@ textarea:focus {
 .save:hover{
   background-color: #ededed;
   cursor: pointer;
- 
+  transform: scale(1.1); /* Slightly increase size on hover */
+  transition: transform 0.2s ease, color 0.2s ease; /* Smooth transition */
+}
+
+.green{
+  color: greenyellow;
+}
+
+.red{
+  color: rgb(227, 19, 19);
+}
+
+.delete-icon{
+  cursor: pointer;
+}
+
+.delete-icon:hover {
+  color: red; /* Change color on hover */
+  transform: scale(1.3); /* Slightly increase size on hover */
+  transition: transform 0.2s ease, color 0.2s ease; /* Smooth transition */
 }

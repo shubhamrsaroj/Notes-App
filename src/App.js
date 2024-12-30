@@ -1,7 +1,7 @@
 import { useState } from "react";
 import NotesList from "./components/NotesList";
 import {nanoid} from 'nanoid';
-import Note from "./components/Note";
+
 const App=()=>{
 
 
@@ -33,6 +33,9 @@ const App=()=>{
 
     setNotes(newnotes);
   }
+
+
+ 
 
 
   const addNote=(text)=>{

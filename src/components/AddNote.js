@@ -5,11 +5,16 @@ const AddNote=({handleAddNote})=>{
 
 
     const[noteText,setNoteText]=useState('');
-
+    
+    let characterL=200;
 
     const handleChange=(event)=>{
+
+        if(characterL-event.target.value.length>=0){
+            setNoteText(event.target.value);
+        
+        }
          
-        setNoteText(event.target.value);
         
     }
 
@@ -18,13 +23,21 @@ const AddNote=({handleAddNote})=>{
         if(noteText.trim().length>0){
 
             handleAddNote(noteText);
+            setNoteText("");
         }
     
         
     }
 
+     const mylength=()=>{
+          
+        let mylength=characterL-noteText.length;
 
-
+        if(mylength<0){
+            characterL=0;
+        }
+         
+     }
 
     
 
@@ -39,7 +52,7 @@ const AddNote=({handleAddNote})=>{
             >
             </textarea>
             <div className="note-footer">
-                <small> 200 Remaining</small> 
+                <small> {characterL-noteText.length}</small> 
                 <button className="save" onClick={handleSaveClick}>Save</button>
             </div>
         
