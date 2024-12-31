@@ -29,16 +29,7 @@ const AddNote=({handleAddNote})=>{
         
     }
 
-     const mylength=()=>{
-          
-        let mylength=characterL-noteText.length;
-
-        if(mylength<0){
-            characterL=0;
-        }
-         
-     }
-
+   
     
 
     return(

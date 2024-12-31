@@ -91,3 +91,81 @@ textarea:focus {
   transform: scale(1.3); /* Slightly increase size on hover */
   transition: transform 0.2s ease, color 0.2s ease; /* Smooth transition */
 }
+
+.search{
+  display: flex;
+  align-items: center;
+  background-color: rgb(233, 233, 233);
+  border-radius: 10px;
+  padding: 5px;
+
+}
+
+.search input{
+  border: none;
+  background-color:  rgb(233, 233, 233);
+}
+
+.search input:focus{
+    
+   outline: none;
+  
+}
+
+.header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+.toggleit{
+  background-color: #ededed;
+  cursor: pointer;
+  border-radius: 10px;
+  border-style: none;
+  width: 100px;
+  height: 20px;
+  margin-top: 30px;
+
+}
+
+.toggleit:hover{
+ 
+  transform: scale(1.1); /* Slightly increase size on hover */
+  transition: transform 0.2s ease, color 0.2s ease; /* Smooth transition */
+  border-style: solid;
+}
+
+.myedit{
+  cursor: pointer;
+}
+
+.headerStyle {
+  font-family: "Roboto", sans-serif; /* Use Roboto font */
+  font-size: 2rem; /* Larger font size for the header */
+  font-weight: 700; /* Bold weight for emphasis */
+  color: #333; /* Dark gray color for better readability */
+  margin: 0; /* Remove default margin */
+  padding: 10px 0; /* Add some padding for spacing */
+  text-align: center; /* Center the text */
+  text-transform: uppercase; /* Optional: make text uppercase for a more formal look */
+  letter-spacing: 1px; /* Slightly increase letter spacing for readability */
+  border-bottom: 2px solid #ccc; /* Optional: add a bottom border for separation */
+}
+
+.myinput{
+  text-align: center;
+  border-radius: 10px;
+  font-family: "Roboto", sans-serif; /* Use Roboto font */
+  font-size: 1rem; /* Larger font size for the header */
+  font-weight: 700; /* Bold weight for emphasis */
+  color: #333; /* Dark gray color for better readability */
+  margin: 0; /* Remove default margin */
+  padding: 10px 0; /* Add some padding for spacing */
+  text-align: center; /* Center the text */
+  text-transform: uppercase; /* Optional: make text uppercase for a more formal look */
+  letter-spacing: 1px; /* Slightly increase letter spacing for readability */
+  border-bottom: 2px solid #ccc; /* Optional: add a bottom border for separation */
+}
+
