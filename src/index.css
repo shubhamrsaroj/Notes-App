@@ -76,18 +76,23 @@ textarea:focus {
 
 .green{
   color: greenyellow;
+  cursor: pointer;
 }
 
 .red{
   color: rgb(227, 19, 19);
+  cursor: pointer;
 }
 
 .yellow{
   color: yellow;
+  cursor: pointer;
 }
 
 .blue{
-  color: blue;
+  color: rgb(54, 54, 216);
+  cursor: pointer;
+ 
 }
 
 .delete-icon{

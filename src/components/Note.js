@@ -3,34 +3,9 @@ import { FaCircle } from "react-icons/fa";
 import { FcBookmark } from "react-icons/fc";
 import { useState } from 'react';
  
-const Note=({id,notes,date,deleteIt})=>{
-
-    
-    const[backgroundColor,setBackgroundColor]=useState("");
+const Note=({id,notes,date,deleteIt,greenit,blueit,yellowit,redit,backgroundColor})=>{
 
 
-    const greenit=()=>{
-        setBackgroundColor("lightgreen");
-    }
-
-    const redit=()=>{
-        setBackgroundColor("lightcoral");
-    }
-
-    const yellowit=()=>{
-        setBackgroundColor("gold");
-    }
-
-
-    const blueit=()=>{
-        setBackgroundColor("lightblue");
-    }
-
-
-    
-
-
-    
 
     return(
         
@@ -39,7 +14,7 @@ const Note=({id,notes,date,deleteIt})=>{
             <div className="note-footer">
              <span>{date}</span>
              
-             < FcBookmark size="1.1em"/>
+             < FcBookmark size="1.1em" />
              <FaCircle className='green' onClick={greenit} />
              <FaCircle className='red' onClick={redit}/>
              <FaCircle className='yellow' onClick={yellowit}/>
