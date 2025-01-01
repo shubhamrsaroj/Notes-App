@@ -82,6 +82,14 @@ textarea:focus {
   color: rgb(227, 19, 19);
 }
 
+.yellow{
+  color: yellow;
+}
+
+.blue{
+  color: blue;
+}
+
 .delete-icon{
   cursor: pointer;
 }
