@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { connectToMongodb, getdb } from './db.config.js';
 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -17,6 +18,10 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors());
+
+
+
+
 
 // Connect to MongoDB
 connectToMongodb()
@@ -33,6 +38,8 @@ connectToMongodb()
                 if (existingUser) {
                     return res.status(400).json({ message: 'User already exists' });
                 }
+
+
 
                 // Hash password
                 const salt = await bcrypt.genSalt(10);
@@ -102,6 +109,10 @@ connectToMongodb()
         // Note the path change here - going up one directory to reach frontend/build
         app.use(express.static(join(__dirname, '../frontend/build')));
 
+
+        app.use(express.static(join(__dirname,'./frontend/build')));
+
+
         // The "catchall" handler
         app.get('*', (req, res) => {
             res.sendFile(join(__dirname, '../frontend/build/index.html'));
@@ -122,3 +133,6 @@ app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({ message: 'Something went wrong!' });
 });
+
+
+
