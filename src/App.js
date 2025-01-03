@@ -1,81 +1,75 @@
+// App.js
 import { useEffect, useState } from "react";
+import axios from 'axios';
 import NotesList from "./components/NotesList";
-import { nanoid } from 'nanoid';
 import Search from "./components/Search";
 import Header from "./components/Header";
 import Auth from "./components/Auth";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
-    // Authentication state
     const [isAuthenticated, setIsAuthenticated] = useState(() => {
         return !!localStorage.getItem('token');
     });
 
-  
-const [notes, setNotes] = useState(() => {
-    try {
-        const savedNotes = localStorage.getItem('react-notes-app');
-        const parsedNotes = savedNotes ? JSON.parse(savedNotes) : [
-            {
-                id: nanoid(),
-                text: "hello brother",
-                date: "12/5/34"
-            },
-            {
-                id: nanoid(),
-                text: "hello jiju",
-                date: "12/5/34"
-            },
-            {
-                id: nanoid(),
-                text: "hello saala",
-                date: "12/5/34"
-            }
-        ];
-        return Array.isArray(parsedNotes) ? parsedNotes : [];
-    } catch (error) {
-        console.error("Error loading notes:", error);
-        return [];
-    }
-});
-    
-
-    // UI states
+    const [notes, setNotes] = useState([]);
     const [search, setSearch] = useState("");
     const [backgroundColor, setBackgroundColor] = useState("");
 
-    // Check authentication on mount
+    // Fetch notes when component mounts and authentication changes
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            setIsAuthenticated(true);
+        if (isAuthenticated) {
+            fetchNotes();
         }
-    }, []);
+    }, [isAuthenticated]);
 
-    // Save notes to localStorage whenever they change
-    useEffect(() => {
+    const fetchNotes = async () => {
         try {
-            localStorage.setItem('react-notes-app', JSON.stringify(notes));
+            const token = localStorage.getItem('token');
+            const response = await axios.get('http://localhost:3000/api/notes', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setNotes(response.data);
         } catch (error) {
-            console.error("Error saving notes:", error);
+            console.error("Error fetching notes:", error);
         }
-    }, [notes]);
+    };
 
-    // Note management functions
-    const addNote = (text) => {
-        const date = new Date();
-        const newNote = {
-            id: nanoid(),
-            text: text,
-            date: date.toLocaleDateString(),
+    const addNote = async (text) => {
+        try {
+            const token = localStorage.getItem('token');
+            const date = new Date().toLocaleDateString();
+            
+            const response = await axios.post('http://localhost:3000/api/notes', 
+                { text, date },
+                { headers: { Authorization: `Bearer ${token}` }}
+            );
+            
+            setNotes([...notes, response.data]);
+        } catch (error) {
+            console.error("Error adding note:", error);
         }
-        setNotes(prevNotes => [...prevNotes, newNote]);
-    }
+    };
 
-    const deleteit = (id) => {
-        setNotes(prevNotes => prevNotes.filter(note => note.id !== id));
-    }
+    const deleteit = async (id) => {
+        try {
+            const token = localStorage.getItem('token');
+            await axios.delete(`http://localhost:3000/api/notes/${id}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            
+            setNotes(prevNotes => prevNotes.filter(note => note._id !== id));
+        } catch (error) {
+            console.error("Error deleting note:", error);
+        }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        setIsAuthenticated(false);
+        setNotes([]);
+    };
 
     // Color management functions
     const greenit = () => setBackgroundColor("lightgreen");
@@ -83,15 +77,8 @@ const [notes, setNotes] = useState(() => {
     const yellowit = () => setBackgroundColor("gold");
     const blueit = () => setBackgroundColor("lightblue");
 
-    // Handle logout
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        setIsAuthenticated(false);
-    };
-
-    // State for editing notes
     const [change, setChange] = useState(false);
-    const [vvalue, setValue] = useState("Shubham's note");
+    const [vvalue, setValue] = useState("My Notes");
 
     const changeit = () => setChange(true);
 
@@ -101,7 +88,6 @@ const [notes, setNotes] = useState(() => {
         }
     };
 
-    // Render the Auth component if not authenticated
     if (!isAuthenticated) {
         return <Auth setIsAuthenticated={setIsAuthenticated} />;
     }
@@ -110,8 +96,17 @@ const [notes, setNotes] = useState(() => {
         <div className="container-fluid">
             <div className="row">
                 <div className="col-12">
-                <Header change={change} vvalue={vvalue} setValue={setValue} changeit={changeit} keydown={keydown} />
-                    <div className="d-flex justify-content-end mb-3">
+                    <Header 
+                        change={change} 
+                        vvalue={vvalue} 
+                        setValue={setValue} 
+                        changeit={changeit} 
+                        keydown={keydown} 
+                    />
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <span className="h5">
+                            Welcome, {localStorage.getItem('username')}!
+                        </span>
                         <button 
                             className="btn btn-outline-danger"
                             onClick={handleLogout}
@@ -136,6 +131,6 @@ const [notes, setNotes] = useState(() => {
             </div>
         </div>
     );
-}
+};
 
 export default App;

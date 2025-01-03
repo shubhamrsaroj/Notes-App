@@ -32,6 +32,10 @@ const Auth = ({ setIsAuthenticated }) => {
         }
     };
 
+
+   
+
+
     return (
         <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
             <div className="card shadow-lg" style={{ maxWidth: '400px', width: '100%' }}>
