@@ -60,6 +60,8 @@ connectToMongodb()
                     { expiresIn: '24h' }
                 );
 
+
+               
                 res.status(201).json({
                     message: 'User created successfully',
                     token,
@@ -110,7 +112,7 @@ connectToMongodb()
         app.use(express.static(join(__dirname, '../frontend/build')));
 
 
-        app.use(express.static(join(__dirname,'./frontend/build')));
+       
 
 
         // The "catchall" handler
