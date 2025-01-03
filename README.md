@@ -4,7 +4,7 @@ Overview
 
 The Notes App is a user-friendly application that allows users to save, view, and manage their personal notes securely. With features like authentication, note deletion, and customizable note colors, this app provides a simple yet powerful way to organize thoughts and tasks.
 
-Features
+Features 
 
 User Authentication: Secure login to access personal notes.
 
