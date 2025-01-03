@@ -3,6 +3,8 @@ import { MongoClient } from 'mongodb';
 const url = "mongodb://127.0.0.1:27017/notes-app";
 let client;
 
+
+
 export const connectToMongodb = async () => {
     try {
         // Create a new MongoClient instance without deprecated options
@@ -20,7 +22,7 @@ export const getdb = () => {
     if (!client) {
         throw new Error("Database not initialized - call connectToMongodb first");
     }
-    return client.db(); // Return the database instance
+    return client.db(); // Return the database instance //in this my db is reaact-app
 };
 
 export const closeConnection = async () => {
@@ -30,3 +32,4 @@ export const closeConnection = async () => {
         client = null; // Reset the client to null after closing
     }
 };
+

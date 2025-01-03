@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
-const Header=()=>{
+const Header=({change,vvalue,setValue,changeit,keydown})=>{
 
     const[toggle,setToggle]=useState("white");
 
-    const[change,setChange]=useState(false);
-
-    const[vvalue,setValue]=useState("Shubham's notes");
+    
 
     const toggleit=()=>{
        
@@ -17,22 +15,6 @@ const Header=()=>{
     
     }
 
-    const changeit=()=>{
-            setChange(true);
-    }
-
-
-    const keydown=(event)=>{
-        
-        
-             
-        if(event.key==="Enter"){
-            setChange(false);
-        }
-    }
-
-
-    let myvalue="Shubham's notes";
 
 
     return(
@@ -54,3 +36,4 @@ const Header=()=>{
 }
 
 export default Header;
+

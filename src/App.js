@@ -5,7 +5,6 @@ import Search from "./components/Search";
 import Header from "./components/Header";
 import Auth from "./components/Auth";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const App = () => {
     // Authentication state
@@ -13,32 +12,34 @@ const App = () => {
         return !!localStorage.getItem('token');
     });
 
-    // Notes state
-    const [notes, setNotes] = useState(() => {
-        try {
-            const savedNotes = JSON.parse(localStorage.getItem('react-notes-app')) || [
-                {
-                    id: nanoid(),
-                    text: "hello brother",
-                    date: "12/5/34"
-                },
-                {
-                    id: nanoid(),
-                    text: "hello jiju",
-                    date: "12/5/34"
-                },
-                {
-                    id: nanoid(),
-                    text: "hello saala",
-                    date: "12/5/34"
-                }
-            ];
-            return savedNotes;
-        } catch (error) {
-            console.error("Error loading notes:", error);
-            return [];
-        }
-    });
+  
+const [notes, setNotes] = useState(() => {
+    try {
+        const savedNotes = localStorage.getItem('react-notes-app');
+        const parsedNotes = savedNotes ? JSON.parse(savedNotes) : [
+            {
+                id: nanoid(),
+                text: "hello brother",
+                date: "12/5/34"
+            },
+            {
+                id: nanoid(),
+                text: "hello jiju",
+                date: "12/5/34"
+            },
+            {
+                id: nanoid(),
+                text: "hello saala",
+                date: "12/5/34"
+            }
+        ];
+        return Array.isArray(parsedNotes) ? parsedNotes : [];
+    } catch (error) {
+        console.error("Error loading notes:", error);
+        return [];
+    }
+});
+    
 
     // UI states
     const [search, setSearch] = useState("");
@@ -88,6 +89,19 @@ const App = () => {
         setIsAuthenticated(false);
     };
 
+    // State for editing notes
+    const [change, setChange] = useState(false);
+    const [vvalue, setValue] = useState("Shubham's note");
+
+    const changeit = () => setChange(true);
+
+    const keydown = (event) => {
+        if (event.key === "Enter") {
+            setChange(false);
+        }
+    };
+
+    // Render the Auth component if not authenticated
     if (!isAuthenticated) {
         return <Auth setIsAuthenticated={setIsAuthenticated} />;
     }
@@ -96,7 +110,7 @@ const App = () => {
         <div className="container-fluid">
             <div className="row">
                 <div className="col-12">
-                    <Header />
+                <Header change={change} vvalue={vvalue} setValue={setValue} changeit={changeit} keydown={keydown} />
                     <div className="d-flex justify-content-end mb-3">
                         <button 
                             className="btn btn-outline-danger"
